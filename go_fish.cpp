@@ -1,6 +1,9 @@
 #include <iostream>
+#include <cstdlib>
+#include "card.h"
+#include "deck.h"
+#include "player.h"
 
 int main() {
-    std::cout << "Hello, World!" << std::endl;
-    return 0;
+
 }
