@@ -24,9 +24,9 @@ Card::Card(int rank, Card::Suit s) {
 
 string Card::rankString(int r) const {
 
-    string rankArr[13] = {"A","2","3","4","5","6","7","8","9","10","J","Q","K"};
+    string rankArr[14] = {"0","A","2","3","4","5","6","7","8","9","10","J","Q","K"};
 
-    return rankArr[r-1];
+    return rankArr[r];
 
 }
 
@@ -65,13 +65,13 @@ string Card::toString() const {
 
 bool Card::operator==(const Card &rhs) const {
 
-    return(myRank == rhs.myRank && this->sameSuitAs(rhs));
+    return(myRank == rhs.myRank && mySuit == rhs.mySuit);
 
 }
 
 bool Card::operator!=(const Card &rhs) const {
 
-    return(*this != rhs);
+    return(myRank != myRank && mySuit != mySuit);
 
 }
 

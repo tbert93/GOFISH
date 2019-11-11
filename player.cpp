@@ -6,6 +6,8 @@
 #include "card.h"
 #include "deck.h"
 #include <ctime>
+#include <iterator>
+#include <cstdlib>
 
 using namespace std;
 
@@ -35,20 +37,21 @@ Card Player::chooseCardFromHand() const {
 
 bool Player::cardInHand(Card c) const {
 
-    for(Card temp : myHand){
+    vector<Card>::const_iterator i;
+    for(i = myHand.begin(); i < myHand.end(); i++){
 
-        if(temp == c)
+        if(*i == c)
             return true;
 
     }
 
     return false;
-
 }
 
 Card Player::removeCardFromHand(Card c) {
 
-    for(vector<Card>::iterator i = myHand.end(); i != myHand.begin(); i--){
+    vector<Card>::iterator i;
+    for(i = myHand.begin(); i < myHand.end(); i++){
 
         if(*i == c) {
             i = myHand.erase(i);
@@ -63,10 +66,11 @@ string Player::showHand() const {
 
     string hand = " ";
 
-    for(Card temp : myHand){
+    vector<Card>::const_iterator i;
+    for(i = myHand.begin(); i < myHand.end(); i++){
 
-        hand += temp.toString();
-        hand += ", ";
+        hand += (*i).toString();
+        hand += " ";
 
     }
 
@@ -78,10 +82,11 @@ string Player::showBooks() const {
 
     string books = " ";
 
-    for(Card temp : myBook){
+    vector<Card>::const_iterator i;
+    for(i = myBook.begin(); i < myBook.end(); i++){
 
-        books += temp.toString();
-        books += ", ";
+        books += (*i).toString();
+        books += " ";
 
     }
 
@@ -103,9 +108,10 @@ int Player::getHandSize() const {
 
 bool Player::sameRankInHand(Card c) const {
 
-    for(Card temp : myHand){
+    vector<Card>::const_iterator i;
+    for(i = myHand.begin(); i < myHand.end(); i++){
 
-        if(temp.getRank() == c.getRank())
+        if((*i).getRank() == c.getRank())
             return true;
     }
 
@@ -115,11 +121,11 @@ bool Player::sameRankInHand(Card c) const {
 
 bool Player::checkHandForPair(Card &c1, Card &c2) {
 
-    for(vector<Card>::iterator i = myHand.end(); i != myHand.begin(); i-- ){
+    for(vector<Card>::iterator i = myHand.begin(); i < myHand.end(); i++ ){
 
-        for(vector<Card>::iterator j = i - 1 ; j != myHand.begin(); j--){
+        for(vector<Card>::iterator j = (i + 1); j < myHand.end(); j++){
 
-            if(*i == *j){
+            if((*i).getRank() == (*j).getRank()){
 
                 c1 = *i;
                 c2 = *j;
@@ -131,4 +137,30 @@ bool Player::checkHandForPair(Card &c1, Card &c2) {
 
     return false;
 }
+
+Card Player::findCard(Card c) const {
+
+    vector<Card>::const_iterator i;
+    for(i = myHand.begin(); i < myHand.end(); i++){
+
+        if ((*i).getRank() == c.getRank())
+            return *i;
+
+    }
+
+    return c;
+
+}
+
+
+
+//string Player::lastCard() {
+
+    //return (*myHand.end()).toString();
+//}
+
+//string Player::lastBook() {
+
+    //return(*myBook.end()).rankString((*myBook.end()).getRank());
+//}
 

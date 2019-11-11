@@ -5,7 +5,7 @@
 #include "deck.h"
 #include "card.h"
 #include <ctime>
-
+#include <cstdlib>
 using namespace std;
 
 Deck::Deck() {
@@ -43,7 +43,13 @@ void Deck::shuffle() {
 
 Card Deck::dealCard() {
 
-    return (myCards[myIndex]);
+    Card temp(0,Card::Suit(0));
+    if(size() > 0){
+        temp = myCards[myIndex];
+        myIndex++;
+    }
+
+    return temp;
 }
 
 int Deck::size() const {
